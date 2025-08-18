@@ -34,38 +34,7 @@ A beautiful Flutter mobile application that allows users to create digital time 
 - Android Studio / VS Code
 - Android/iOS device or emulator
 
-### Installation
-
-1. **Clone the repository**
-   \`\`\`bash
-   git clone https://github.com/Shaimaa-22/time-capsule-app.git
-   cd time-capsule-app
-   \`\`\`
-
-2. **Install dependencies**
-   \`\`\`bash
-   flutter pub get
-   \`\`\`
-
-3. **Database Setup**
-   - Set up PostgreSQL database
-   - Configure connection in `lib/services/remote_db.dart`
-   - Run database migrations
-
-4. **Configuration**
-   - Update database credentials
-   - Configure notification settings
-   - Set up file storage paths
-
-5. **Run the app**
-   \`\`\`bash
-   flutter run
-   \`\`\`
-
-## 🏗️ Architecture
-
 ### MVVM Pattern
-\`\`\`
 lib/
 ├── models/           # Data models (User, Capsule)
 ├── services/         # Business logic and API calls
@@ -73,7 +42,7 @@ lib/
 ├── views/           # UI screens and pages
 ├── widgets/         # Reusable UI components
 └── utils/           # Helper functions and constants
-\`\`\`
+
 
 ### Key Components
 - **AuthService**: User authentication and session management
