@@ -101,37 +101,5 @@ static const String _password = 'your-password';
 // See lib/services/notification_service.dart
 \`\`\`
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-### Development Guidelines
-- Follow Flutter/Dart style guidelines
-- Write unit tests for new features
-- Update documentation for API changes
-- Use meaningful commit messages
-
-## 🙏 Acknowledgments
-
-- Flutter team for the amazing framework
-- PostgreSQL for reliable database solutions
-- Contributors and beta testers
-- Open source community
-
-## 🗺️ Roadmap
-
-- [ ] Cloud backup and sync
-- [ ] Web application companion
-- [ ] Advanced sharing features
-- [ ] AI-powered memory suggestions
-- [ ] Video message support
-- [ ] Location-based capsules
-
----
-
 **Made with ❤️ using Flutter**
 
