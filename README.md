@@ -38,7 +38,7 @@ A beautiful Flutter mobile application that allows users to create digital time 
 
 1. **Clone the repository**
    \`\`\`bash
-   git clone https://github.com/yourusername/time-capsule-app.git
+   git clone https://github.com/Shaimaa-22/time-capsule-app.git
    cd time-capsule-app
    \`\`\`
 
