@@ -417,7 +417,6 @@ class ClassLogger {
   }
 }
 
-/// Extension methods for easier logging
 extension LoggerExtension on Object {
   void logDebug(String message) {
     Logger.debug(message, tag: runtimeType.toString());
