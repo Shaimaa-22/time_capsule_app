@@ -8,7 +8,6 @@ class SharingService {
   static const String appDomain =
       'https://timecapsule.app'; 
 
-  /// Share a capsule with another user by email
   static Future<void> shareCapsuleWithUser(
     Capsule capsule,
     String recipientEmail,
@@ -16,19 +15,15 @@ class SharingService {
     _logger.info('Sharing capsule with user: ${capsule.id} -> $recipientEmail');
 
     try {
-      // Add recipient to the capsule
       await CapsuleService.addRecipientToCapsule(capsule.id, recipientEmail);
 
-      // Generate shareable link
       final shareLink = CapsuleService.generateShareableLink(
         capsule.id,
         appDomain,
       );
 
-      // Create invitation message
       final invitationMessage = _createInvitationMessage(capsule, shareLink);
 
-      // Share the invitation
       await Share.share(
         invitationMessage,
         subject:
@@ -49,7 +44,6 @@ class SharingService {
     }
   }
 
-  /// Share capsule as text (original functionality)
   static Future<void> shareCapsuleAsText(Capsule capsule) async {
     _logger.info('Sharing capsule as text: ${capsule.id}');
 
@@ -71,7 +65,6 @@ class SharingService {
     }
   }
 
-  /// Create invitation message for shared capsule
   static String _createInvitationMessage(Capsule capsule, String shareLink) {
     final openDate = _formatDate(capsule.openDate);
     final status = capsule.isOpened ? 'Opened' : 'Locked';
@@ -92,7 +85,6 @@ $shareLink
 ''';
   }
 
-  /// Create share text (original functionality)
   static String _createShareText(Capsule capsule) {
     final openDate = _formatDate(capsule.openDate);
     final status = capsule.isOpened ? 'Opened' : 'Locked';
@@ -109,7 +101,6 @@ ${capsule.isOpened ? 'This capsule has been opened and its content is ready to v
 ''';
   }
 
-  /// Format date for display in English
   static String _formatDate(DateTime date) {
     final months = [
       'January',
