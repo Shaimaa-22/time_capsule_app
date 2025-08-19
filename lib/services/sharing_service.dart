@@ -6,7 +6,7 @@ import 'capsule_service.dart';
 class SharingService {
   static final _logger = Logger.forClass('SharingService');
   static const String appDomain =
-      'https://timecapsule.app'; // Replace with your actual domain
+      'https://timecapsule.app'; 
 
   /// Share a capsule with another user by email
   static Future<void> shareCapsuleWithUser(
