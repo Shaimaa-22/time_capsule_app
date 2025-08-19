@@ -47,3 +47,5 @@ flutter:
     - assets/icons/splash.jpg
     - assets/.env
     - assets/translations/
+    - assets/images/
+

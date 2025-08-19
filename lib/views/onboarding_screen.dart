@@ -37,25 +37,25 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       OnboardingPage(
         title: context.tr('onboarding.page1.title'),
         description: context.tr('onboarding.page1.description'),
-        icon: Icons.access_time_rounded,
+        imagePath: 'assets/images/onboarding_1.jpg',
         gradient: ThemeService.primaryGradient,
       ),
       OnboardingPage(
         title: context.tr('onboarding.page2.title'),
         description: context.tr('onboarding.page2.description'),
-        icon: Icons.add_circle_outline_rounded,
+        imagePath: 'assets/images/onboarding_2.jpg',
         gradient: ThemeService.successGradient,
       ),
       OnboardingPage(
         title: context.tr('onboarding.page3.title'),
         description: context.tr('onboarding.page3.description'),
-        icon: Icons.schedule_rounded,
+        imagePath: 'assets/images/onboarding_3.jpg',
         gradient: ThemeService.warningGradient,
       ),
       OnboardingPage(
         title: context.tr('onboarding.page4.title'),
         description: context.tr('onboarding.page4.description'),
-        icon: Icons.rocket_launch_rounded,
+        imagePath: 'assets/images/onboarding_4.jpg',
         gradient: ThemeService.dangerGradient,
       ),
     ];
@@ -424,11 +424,11 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                 child: ScaleTransition(
                   scale: _scaleAnimation,
                   child: Container(
-                    width: 120,
-                    height: 120,
+                    width: 220,
+                    height: 220,
                     decoration: BoxDecoration(
                       gradient: page.gradient,
-                      borderRadius: BorderRadius.circular(60),
+                      borderRadius: BorderRadius.circular(24),
                       boxShadow: [
                         BoxShadow(
                           color: page.gradient.colors.first.withValues(
@@ -447,7 +447,22 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                         ),
                       ],
                     ),
-                    child: Icon(page.icon, size: 60, color: Colors.white),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(24),
+                      child: Image.asset(
+                        page.imagePath,
+                        width: 250,
+                        height: 250,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Icon(
+                            Icons.image_not_supported,
+                            size: 80,
+                            color: Colors.white,
+                          );
+                        },
+                      ),
+                    ),
                   ),
                 ),
               );
@@ -518,13 +533,13 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 class OnboardingPage {
   final String title;
   final String description;
-  final IconData icon;
+  final String imagePath;
   final LinearGradient gradient;
 
   OnboardingPage({
     required this.title,
     required this.description,
-    required this.icon,
+    required this.imagePath,
     required this.gradient,
   });
 }
