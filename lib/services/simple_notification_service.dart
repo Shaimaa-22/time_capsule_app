@@ -21,7 +21,6 @@ class SimpleNotificationService {
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
 
-    // iOS initialization settings
 
     const InitializationSettings initializationSettings =
         InitializationSettings(android: initializationSettingsAndroid);
@@ -187,7 +186,6 @@ class SimpleNotificationService {
     }
   }
 
-  /// Cancel all notifications
   static Future<void> cancelAllNotifications() async {
     try {
       await _notifications.cancelAll();
