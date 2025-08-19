@@ -13,7 +13,6 @@ class LocalizationService extends ChangeNotifier {
   Map<String, dynamic> _localizedStrings = {};
   bool _isInitialized = false;
 
-  // <CHANGE> Standardized comments to English
   /// Cache to speed up JSON file loading
   static final Map<String, Map<String, dynamic>> _cache = {};
 
