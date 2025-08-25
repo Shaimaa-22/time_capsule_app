@@ -1,31 +1,31 @@
-# 🕰️ Time Capsule App
+# Time Capsule App
 
 A beautiful Flutter mobile application that allows users to create digital time capsules - storing memories, messages, and files to be opened at future dates. Share special moments with loved ones or keep personal reflections for your future self.
 
-## ✨ Features
+##  Features
 
-### 🔐 Core Functionality
+### Core Functionality
 - **Digital Time Capsules**: Create capsules with text, images, and files
 - **Scheduled Opening**: Set future dates for capsule unlocking
 - **Secure Storage**: Encrypted data storage with PostgreSQL backend
 - **Multi-media Support**: Text messages, images, documents, and more
 - **Sharing System**: Share capsules with friends and family
 
-### 🌍 User Experience
+### User Experience
 - **Multi-language Support**: Arabic and English localization
 - **Dark/Light Themes**: Customizable appearance
 - **Push Notifications**: Reminders when capsules are ready to open
 - **Responsive Design**: Optimized for phones and tablets
 - **Offline Capabilities**: View opened capsules without internet
 
-### 📊 Advanced Features
+### Advanced Features
 - **Dashboard Analytics**: Track your capsule statistics
 - **User Authentication**: Secure login and registration
 - **Background Processing**: Automatic capsule management
 - **File Management**: Secure file upload and storage
 - **Social Features**: Share and collaborate on capsules
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - Flutter SDK (>=3.0.0)
@@ -51,7 +51,7 @@ lib/
 - **RemoteDB**: PostgreSQL database connection and queries
 - **ViewModels**: State management with ChangeNotifier pattern
 
-## 🛠️ Technical Stack
+##  Technical Stack
 
 - **Frontend**: Flutter/Dart
 - **State Management**: Provider pattern
@@ -62,7 +62,7 @@ lib/
 - **Localization**: Flutter Intl
 - **Architecture**: MVVM with Service Layer
 
-## 📋 Usage
+## Usage
 
 ### Creating a Time Capsule
 1. Tap the "+" button on the home screen
@@ -83,7 +83,7 @@ lib/
 3. Recipients receive notifications when capsule opens
 4. Collaborate on group memories
 
-## 🔧 Configuration
+## Configuration
 
 ### Database Configuration
 \`\`\`dart
