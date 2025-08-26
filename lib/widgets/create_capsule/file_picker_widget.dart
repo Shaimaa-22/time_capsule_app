@@ -26,13 +26,13 @@ class FilePickerWidget extends StatelessWidget {
   Color _getContentTypeColor() {
     switch (contentType) {
       case 'image':
-        return const Color(0xFFFF6B9D); // Cute pink
+        return const Color(0xFFFF6B9D);  
       case 'video':
-        return const Color(0xFF9B59B6); // Soft purple
+        return const Color(0xFF9B59B6); 
       case 'audio':
-        return const Color(0xFFFFD93D); // Sunny yellow
+        return const Color(0xFFFFD93D); 
       default:
-        return const Color(0xFF4ECDC4); // Mint green
+        return const Color(0xFF4ECDC4);  
     }
   }
 
@@ -157,9 +157,7 @@ class FilePickerWidget extends StatelessWidget {
 
           const SizedBox(height: 24),
 
-          // File selection area
           if (selectedFile == null) ...[
-            // Action buttons
             if (contentType == 'image') ...[
               Row(
                 children: [
@@ -167,7 +165,7 @@ class FilePickerWidget extends StatelessWidget {
                     child: _buildActionButton(
                       context: context,
                       icon: Icons.photo_library_rounded,
-                      label: '📱 Gallery',
+                      label: 'Gallery',
                       color: color,
                       onTap: () {
                         HapticFeedback.mediumImpact();
