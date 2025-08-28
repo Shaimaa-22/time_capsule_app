@@ -17,6 +17,8 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final padding = ResponsiveHelper.responsivePadding(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -36,7 +38,6 @@ class ProfileScreen extends StatelessWidget {
             gradient: ThemeService.getPrimaryGradient(context),
           ),
         ),
-        foregroundColor: Colors.white,
         actions: const [
           LanguageSwitcher(),
           LoggerViewerButton(),
@@ -56,23 +57,22 @@ class ProfileScreen extends StatelessWidget {
           ),
         ),
         child: SingleChildScrollView(
-          padding: ResponsiveHelper.responsivePadding(context),
+          padding: padding,
           child: ConstrainedBox(
             constraints: BoxConstraints(
-              maxWidth:
-                  ResponsiveHelper.isDesktop(context) ? 600 : double.infinity,
+              maxWidth: ResponsiveHelper.containerWidth(context),
             ),
             child: Center(
               child: Column(
                 children: [
                   _buildUserCard(context),
                   SizedBox(
-                    height: ResponsiveHelper.isMobile(context) ? 24 : 32,
-                  ),
+                      height: ResponsiveHelper.responsiveValue(
+                          context, base: 24)),
                   _buildMenuItems(context),
                   SizedBox(
-                    height: ResponsiveHelper.isMobile(context) ? 16 : 20,
-                  ),
+                      height: ResponsiveHelper.responsiveValue(
+                          context, base: 16)),
                   _buildLogoutButton(context),
                 ],
               ),
@@ -84,45 +84,47 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Widget _buildUserCard(BuildContext context) {
+    final size = ResponsiveHelper.responsiveValue(context, base: 80);
+    final spacing = ResponsiveHelper.responsiveValue(context, base: 24);
+
     return Container(
       width: double.infinity,
       padding: ResponsiveHelper.responsivePadding(context),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(ResponsiveHelper.responsiveValue(context, base: 20)),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 20,
-            offset: const Offset(0, 5),
+            blurRadius: ResponsiveHelper.responsiveValue(context, base: 20),
+            offset: Offset(0, ResponsiveHelper.responsiveValue(context, base: 5)),
           ),
         ],
       ),
       child: Column(
         children: [
           Container(
-            width: ResponsiveHelper.isMobile(context) ? 70 : 80,
-            height: ResponsiveHelper.isMobile(context) ? 70 : 80,
+            width: size,
+            height: size,
             decoration: BoxDecoration(
               gradient: ThemeService.getPrimaryGradient(context),
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(ResponsiveHelper.responsiveValue(context, base: 20)),
               boxShadow: [
                 BoxShadow(
-                  color: ThemeService.getPrimaryColor(
-                    context,
-                  ).withValues(alpha: 0.3),
-                  blurRadius: 20,
-                  offset: const Offset(0, 8),
+                  color: ThemeService.getPrimaryColor(context)
+                      .withValues(alpha: 0.3),
+                  blurRadius: ResponsiveHelper.responsiveValue(context, base: 20),
+                  offset: Offset(0, ResponsiveHelper.responsiveValue(context, base: 8)),
                 ),
               ],
             ),
             child: Icon(
               Icons.person_rounded,
-              size: ResponsiveHelper.isMobile(context) ? 35 : 40,
+              size: ResponsiveHelper.responsiveValue(context, base: 40),
               color: Colors.white,
             ),
           ),
-          SizedBox(height: ResponsiveHelper.isMobile(context) ? 16 : 20),
+          SizedBox(height: spacing),
           Text(
             AuthService.currentUserName ?? context.tr('profile.user_name'),
             style: TextStyle(
@@ -132,7 +134,7 @@ class ProfileScreen extends StatelessWidget {
               color: Theme.of(context).colorScheme.onSurface,
             ),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: ResponsiveHelper.responsiveValue(context, base: 8)),
           Text(
             AuthService.currentUserEmail ?? context.tr('profile.no_email'),
             style: TextStyle(
@@ -177,8 +179,7 @@ class ProfileScreen extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (_) => const NotificationSettingsScreen(),
-              ),
+                  builder: (_) => const NotificationSettingsScreen()),
             );
           },
         ),
@@ -214,33 +215,32 @@ class ProfileScreen extends StatelessWidget {
           onTap: () {
             showDialog(
               context: context,
-              builder:
-                  (context) => AlertDialog(
-                    backgroundColor: Theme.of(context).colorScheme.surface,
-                    title: Text(
-                      context.tr('profile.about_title'),
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onSurface,
-                      ),
-                    ),
-                    content: Text(
-                      context.tr('profile.about_content'),
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onSurfaceVariant,
-                      ),
-                    ),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.pop(context),
-                        child: Text(
-                          context.tr('profile.ok'),
-                          style: TextStyle(
-                            color: ThemeService.getPrimaryColor(context),
-                          ),
-                        ),
-                      ),
-                    ],
+              builder: (context) => AlertDialog(
+                backgroundColor: Theme.of(context).colorScheme.surface,
+                title: Text(
+                  context.tr('profile.about_title'),
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
+                ),
+                content: Text(
+                  context.tr('profile.about_content'),
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text(
+                      context.tr('profile.ok'),
+                      style: TextStyle(
+                        color: ThemeService.getPrimaryColor(context),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             );
           },
         ),
@@ -249,17 +249,20 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Widget _buildLogoutButton(BuildContext context) {
+    final height = ResponsiveHelper.responsiveValue(context, base: 56);
+
     return Container(
       width: double.infinity,
-      height: ResponsiveHelper.isMobile(context) ? 50 : 56,
+      height: height,
       decoration: BoxDecoration(
         gradient: ThemeService.dangerGradient,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius:
+            BorderRadius.circular(ResponsiveHelper.responsiveValue(context, base: 16)),
         boxShadow: [
           BoxShadow(
             color: ThemeService.getDangerColor(context).withValues(alpha: 0.3),
-            blurRadius: 20,
-            offset: const Offset(0, 8),
+            blurRadius: ResponsiveHelper.responsiveValue(context, base: 20),
+            offset: Offset(0, ResponsiveHelper.responsiveValue(context, base: 8)),
           ),
         ],
       ),
@@ -269,59 +272,57 @@ class ProfileScreen extends StatelessWidget {
           onTap: () {
             showDialog(
               context: context,
-              builder:
-                  (context) => AlertDialog(
-                    backgroundColor: Theme.of(context).colorScheme.surface,
-                    title: Text(
-                      context.tr('profile.logout'),
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onSurface,
-                      ),
-                    ),
-                    content: Text(
-                      context.tr('profile.logout_confirm'),
+              builder: (context) => AlertDialog(
+                backgroundColor: Theme.of(context).colorScheme.surface,
+                title: Text(
+                  context.tr('profile.logout'),
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+                ),
+                content: Text(
+                  context.tr('profile.logout_confirm'),
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text(
+                      context.tr('profile.cancel'),
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.onSurfaceVariant,
                       ),
                     ),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.pop(context),
-                        child: Text(
-                          context.tr('profile.cancel'),
-                          style: TextStyle(
-                            color:
-                                Theme.of(context).colorScheme.onSurfaceVariant,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          gradient: ThemeService.dangerGradient,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: TextButton(
-                          onPressed: () {
-                            AuthService.logout();
-                            Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => const LoginScreen(),
-                              ),
-                              (route) => false,
-                            );
-                          },
-                          child: Text(
-                            context.tr('profile.logout'),
-                            style: const TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ],
                   ),
+                  Container(
+                    decoration: BoxDecoration(
+                      gradient: ThemeService.dangerGradient,
+                      borderRadius: BorderRadius.circular(
+                          ResponsiveHelper.responsiveValue(context, base: 8)),
+                    ),
+                    child: TextButton(
+                      onPressed: () {
+                        AuthService.logout();
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (_) => const LoginScreen()),
+                          (route) => false,
+                        );
+                      },
+                      child: Text(
+                        context.tr('profile.logout'),
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             );
           },
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(
+              ResponsiveHelper.responsiveValue(context, base: 16)),
           child: Center(
             child: Text(
               context.tr('profile.logout'),
@@ -344,36 +345,40 @@ class ProfileScreen extends StatelessWidget {
     String? subtitle,
     required VoidCallback onTap,
   }) {
+    final horizontalPadding =
+        ResponsiveHelper.responsiveValue(context, base: 20);
+    final verticalPadding = ResponsiveHelper.responsiveValue(context, base: 8);
+
     return Container(
       margin: EdgeInsets.only(
-        bottom: ResponsiveHelper.isMobile(context) ? 12 : 16,
+        bottom: ResponsiveHelper.responsiveValue(context, base: 16),
       ),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius:
+            BorderRadius.circular(ResponsiveHelper.responsiveValue(context, base: 16)),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 20,
-            offset: const Offset(0, 5),
+            blurRadius: ResponsiveHelper.responsiveValue(context, base: 20),
+            offset: Offset(0, ResponsiveHelper.responsiveValue(context, base: 5)),
           ),
         ],
       ),
       child: ListTile(
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: ResponsiveHelper.isMobile(context) ? 16 : 20,
-          vertical: ResponsiveHelper.isMobile(context) ? 6 : 8,
-        ),
+        contentPadding:
+            EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
         leading: Container(
-          padding: const EdgeInsets.all(10),
+          padding: EdgeInsets.all(ResponsiveHelper.responsiveValue(context, base: 10)),
           decoration: BoxDecoration(
             color: ThemeService.getPrimaryColor(context).withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(
+                ResponsiveHelper.responsiveValue(context, base: 12)),
           ),
           child: Icon(
             icon,
             color: ThemeService.getPrimaryColor(context),
-            size: ResponsiveHelper.isMobile(context) ? 22 : 24,
+            size: ResponsiveHelper.responsiveValue(context, base: 24),
           ),
         ),
         title: Text(
@@ -385,28 +390,29 @@ class ProfileScreen extends StatelessWidget {
             color: Theme.of(context).colorScheme.onSurface,
           ),
         ),
-        subtitle:
-            subtitle != null
-                ? Text(
-                  subtitle,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    fontSize: ResponsiveHelper.isMobile(context) ? 13 : 14,
-                    fontWeight: FontWeight.w500,
-                  ),
-                )
-                : null,
+        subtitle: subtitle != null
+            ? Text(
+                subtitle,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  fontSize: ResponsiveHelper.responsiveValue(context, base: 14),
+                  fontWeight: FontWeight.w500,
+                ),
+              )
+            : null,
         trailing: Container(
-          padding: const EdgeInsets.all(8),
+          padding: EdgeInsets.all(ResponsiveHelper.responsiveValue(context, base: 8)),
           decoration: BoxDecoration(
-            color: Theme.of(
-              context,
-            ).colorScheme.onSurfaceVariant.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(8),
+            color: Theme.of(context)
+                .colorScheme
+                .onSurfaceVariant
+                .withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(
+                ResponsiveHelper.responsiveValue(context, base: 8)),
           ),
           child: Icon(
             Icons.arrow_forward_ios_rounded,
-            size: 16,
+            size: ResponsiveHelper.responsiveValue(context, base: 16),
             color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),
         ),
@@ -418,105 +424,104 @@ class ProfileScreen extends StatelessWidget {
   void _showThemeDialog(BuildContext context) {
     showDialog(
       context: context,
-      builder:
-          (context) => Consumer<ThemeService>(
-            builder: (context, themeService, child) {
-              return AlertDialog(
-                backgroundColor: Theme.of(context).colorScheme.surface,
-                title: Text(
-                  context.tr('profile.choose_theme'),
+      builder: (context) => Consumer<ThemeService>(
+        builder: (context, themeService, child) {
+          return AlertDialog(
+            backgroundColor: Theme.of(context).colorScheme.surface,
+            title: Text(
+              context.tr('profile.choose_theme'),
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                RadioListTile<ThemeMode>(
+                  title: Text(
+                    context.tr('profile.light_theme'),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                  ),
+                  subtitle: Text(
+                    context.tr('profile.light_subtitle'),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                  value: ThemeMode.light,
+                  groupValue: themeService.themeMode,
+                  activeColor: ThemeService.getPrimaryColor(context),
+                  onChanged: (value) {
+                    if (value != null) {
+                      themeService.setThemeMode(value);
+                      Navigator.pop(context);
+                    }
+                  },
+                ),
+                RadioListTile<ThemeMode>(
+                  title: Text(
+                    context.tr('profile.dark_theme'),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                  ),
+                  subtitle: Text(
+                    context.tr('profile.dark_subtitle'),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                  value: ThemeMode.dark,
+                  groupValue: themeService.themeMode,
+                  activeColor: ThemeService.getPrimaryColor(context),
+                  onChanged: (value) {
+                    if (value != null) {
+                      themeService.setThemeMode(value);
+                      Navigator.pop(context);
+                    }
+                  },
+                ),
+                RadioListTile<ThemeMode>(
+                  title: Text(
+                    context.tr('profile.system_theme'),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                  ),
+                  subtitle: Text(
+                    context.tr('profile.system_subtitle'),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                  value: ThemeMode.system,
+                  groupValue: themeService.themeMode,
+                  activeColor: ThemeService.getPrimaryColor(context),
+                  onChanged: (value) {
+                    if (value != null) {
+                      themeService.setThemeMode(value);
+                      Navigator.pop(context);
+                    }
+                  },
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text(
+                  context.tr('profile.cancel'),
                   style: TextStyle(
-                    color: Theme.of(context).colorScheme.onSurface,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
                 ),
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    RadioListTile<ThemeMode>(
-                      title: Text(
-                        context.tr('profile.light_theme'),
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.onSurface,
-                        ),
-                      ),
-                      subtitle: Text(
-                        context.tr('profile.light_subtitle'),
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                      value: ThemeMode.light,
-                      groupValue: themeService.themeMode,
-                      activeColor: ThemeService.getPrimaryColor(context),
-                      onChanged: (value) {
-                        if (value != null) {
-                          themeService.setThemeMode(value);
-                          Navigator.pop(context);
-                        }
-                      },
-                    ),
-                    RadioListTile<ThemeMode>(
-                      title: Text(
-                        context.tr('profile.dark_theme'),
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.onSurface,
-                        ),
-                      ),
-                      subtitle: Text(
-                        context.tr('profile.dark_subtitle'),
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                      value: ThemeMode.dark,
-                      groupValue: themeService.themeMode,
-                      activeColor: ThemeService.getPrimaryColor(context),
-                      onChanged: (value) {
-                        if (value != null) {
-                          themeService.setThemeMode(value);
-                          Navigator.pop(context);
-                        }
-                      },
-                    ),
-                    RadioListTile<ThemeMode>(
-                      title: Text(
-                        context.tr('profile.system_theme'),
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.onSurface,
-                        ),
-                      ),
-                      subtitle: Text(
-                        context.tr('profile.system_subtitle'),
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                      value: ThemeMode.system,
-                      groupValue: themeService.themeMode,
-                      activeColor: ThemeService.getPrimaryColor(context),
-                      onChanged: (value) {
-                        if (value != null) {
-                          themeService.setThemeMode(value);
-                          Navigator.pop(context);
-                        }
-                      },
-                    ),
-                  ],
-                ),
-                actions: [
-                  TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: Text(
-                      context.tr('profile.cancel'),
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onSurfaceVariant,
-                      ),
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 }
